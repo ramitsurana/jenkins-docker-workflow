@@ -1,5 +1,7 @@
 Inspired by [Stelligent ECS CloudFormation Solution](https://stelligent.com/2016/05/26/automating-ecs-provisioning-in-cloudformation-part-1/) and [Stelligent Jenkins ECS Solution](https://stelligent.com/2016/08/24/containerized-ci-solutions-in-aws-part-1-jenkins-in-ecs/)
 
+YAML Reference: https://github.com/microservices-today/ngp-ecs/tree/master
+
 # Jenkins-docker-workflow
 
 This repo is a sample POC for Jenkins-Docker-ECS Workflow.
