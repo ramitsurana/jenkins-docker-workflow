@@ -1,0 +1,82 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "Forming an ECS Cluster",
+
+  "Parameters" : {
+    "InstanceType" : {
+      "Description" : "EC2 instance type",
+      "Type" : "String",
+      "Default" : "t2.micro",
+      "AllowedValues" : [
+        "t2.micro", "t2.small", "t2.medium", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge",
+        "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge",
+        "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge",
+        "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "hs1.8xlarge",
+        "g2.2xlarge"
+      ],
+      "ConstraintDescription" : "must be a valid, HVM-compatible EC2 instance type."
+    },
+    "InstanceDesiredCapacity" : {
+      "Description" : "Desired number of cluster instances",
+      "Type" : "String",
+      "Default" : "1"
+    },
+    "KeyName" : {
+      "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+    },
+	"ClusterOwnerEmailAddr" : {
+	  "Description" : "Email address of the cluster owner",
+      "Type" : "String",
+	   "Default": "ramitsurana@gmail.com"
+	},
+    "ECSClusterName" : {
+      "Description" : "Name you will use for the ECS cluster",
+      "Type" : "String"
+    },
+    "ECSConfigFile" : {
+      "Description" : "(Optional) S3 path to an ecs.config file (ie. for configuring docker private repo auth)",
+      "Type" : "String"
+    },
+    "BootstrapFile" : {
+      "Description" : "(Optional) S3 path to a bash bootstrap script for performing extra configuration",
+      "Type" : "String"
+    },
+    "Subnets" : {
+      "Description" : "List of VPC subnet IDs for the cluster. Note: must match the passed AvailabilityZones.",
+      "Type" : "List<AWS::EC2::Subnet::Id>"
+    },
+    "VpcId" : {
+      "Description" : "VpcId of your existing Virtual Private Cloud (VPC)",
+      "Type" : "AWS::EC2::VPC::Id",
+      "ConstraintDescription": "must be a pre-existing VPC"
+    },
+    "InstanceProfile" : {
+      "Description" : "Name of an IAM Instance Profile to use for the cluster nodes",
+      "Type" : "String"
+    },
+    "AvailabilityZones": {
+      "Description" : "(Optional) If passed, only launch ECS cluster nodes in these AZs (e.g., 'us-east-1a,us-east-1b'). Note: these must match the passed Subnets.",
+      "Type" : "CommaDelimitedList",
+      "Default" : ""
+    },
+    "HealthCheckGracePeriod": {
+      "Description": "The length of time in seconds after a new EC2 instance comes into service that Auto Scaling starts checking its health.",
+      "Type": "String",
+      "Default": "500"
+    },
+    "GogsDestination" : {
+      "Description" : "Using Gogs",
+      "Type" : "String",
+      "Default" : "Dev",
+      "AllowedValues" : [ "Dev", "Prod"]
+    },
+    "ClusterServiceType" : {
+      "Description" : "Type of services hosted by this cluster",
+      "Type" : "String",
+      "Default" : "Internet",
+      "AllowedValues" : ["Internet","Private"]
+    }
+  },
