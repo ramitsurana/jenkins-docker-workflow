@@ -1,0 +1,16 @@
+{
+  "name": "jenkins-docker-workflow",
+  "version": "0.1.0",
+  "description": "CloudFormation Demo",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ramitsurana/jenkins-docker-workflow.git"
+  },
+  "author": {
+    "name": "Ramit Surana"
+    "name": "Abit Datta"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ramitsurana/jenkins-docker-workflow/issues"
+  },
