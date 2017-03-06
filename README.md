@@ -8,7 +8,7 @@ This repo is a sample POC for Jenkins-Docker-ECS Workflow.
 
 ## Introduction
 
-We are going to build up a solution using the CloudFormation Service and CodePipeline Service.
+We are going to build up a ECS based solution using the AWS CloudFormation Service.
 
 ## Prerequisites
 
