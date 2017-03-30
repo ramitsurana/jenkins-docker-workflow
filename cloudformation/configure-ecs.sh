@@ -32,7 +32,7 @@ ecs_template_url="https://s3.amazonaws.com/ramitsurana-cloudformation/ecs-pipeli
 #ecs_template_url="$MY_URL"
 
 echo The value of arg uuid = $uuid
-eval $(aws --region us-east-1 ecr get-login)
+eval $(docker login)
 
 # Build, Tag and Deploy Docker
 docker build -t $dockerhub_repo:$uuid .
