@@ -6,16 +6,58 @@ import (
  "log"
  "os"
  "bufio"
+ "runtime"
 )
+
+func test(){
+
+    fmt.Println("Checking Prerequisites ..")        
+
+    if runtime.GOOS == "windows" {    
+    cmdos1 := exec.Command("type", "-a ", "jq")
+        erros1 := cmdos1.Start()
+		if erros1 != nil {
+            log.Fatal(erros1)
+			log.Printf("JQ not available")
+            fmt.Println("Installing JQ on windows")
+            cmdinstall1 := exec.Command("sudo", "apt-get", "install", "jq")
+            cmdinstall1.Start()
+			os.Exit(1)			
+        }
+		erros1 = cmdos1.Wait()
+    
+    fmt.Println("JQ installed on windows")	
+    }
+
+
+    if runtime.GOOS == "linux" {
+        cmdos2 := exec.Command("sudo", "type", "-a ", "jq")
+        erros2 := cmdos2.Start()
+		if erros2 != nil {
+            log.Fatal(erros2)
+			log.Printf("JQ not available")
+            fmt.Println("Installing JQ on windows")
+            cmdinstall2 := exec.Command("sudo", "apt-get", "install", "jq")
+            cmdinstall2.Start()
+			os.Exit(1)			
+        }
+		erros2 = cmdos2.Wait()
+    
+    fmt.Println("JQ installed on linux")
+    }
+
+}
 
 func main(){
 
   arg0 := "jq"
   arg1 := "'.Parameters'" 
-  arg2 := "file" 
+  //arg2 := "file" 
   arg3 := "'.Resources'"
   arg4 := "'.Mappings'"
   arg5 := "'.Metadata'"  
+
+test()
 
 reader := bufio.NewReader(os.Stdin)
 fmt.Print("\n Enter path of your file: ")
@@ -69,14 +111,27 @@ fmt.Println("Checking Metadata")
 
 fmt.Println("Metadata OK")
 
+readerforward := bufio.NewReader(os.Stdin)
+fmt.Printf("Do you wish to check your services (y/n) ?")
+service, _ := readerforward.ReadString('\n')
+
+    if service == "y" {
+        fmt.Printf("Starting service ...")            
+        //service();
+    } else {
+    os.Exit(1)  
+    }
+}
+
+func service(){
+
 fmt.Printf("Basic Checks completed.\nOPTIONS [.Metadata][.Resources] \nList of services: \n * .EcsCluster \n * .EcsElb \n * .ECSAutoScalingGroup \n * .ContainerInstances")	
 reader1 := bufio.NewReader(os.Stdin)
 fmt.Print("\n Enter your service: ")
-service, _ := reader1.ReadString('\n')
-fmt.Println(service)  
+service, _ := reader1.ReadString('\n') 
 
-        cmdservice := exec.Command(arg0, service, arg2)               
-        //fmt.Println(cmdservice.Start())        
+        cmdservice := exec.Command("jq", service, "ecs-pipeline.json")               
+        fmt.Println(cmdservice.Start())        
         errservice := cmdservice.Start()                       
 		if errservice != nil {
             log.Fatal(errservice)
@@ -84,6 +139,4 @@ fmt.Println(service)
 			os.Exit(1)			
         }
 		errservice = cmdservice.Wait()	
-
-
 }
