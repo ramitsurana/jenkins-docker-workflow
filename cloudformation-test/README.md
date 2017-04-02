@@ -18,12 +18,21 @@ Basic cloudformation can be divided into 4 categories such as:
 * Golang
 * Jq
 
-## How to use the test ?
+## Installation 
+
+Simply follow the below commands:
+
+$ git clone https://github.com/ramitsurana/jenkins-docker-workflow/
+$ cd jenkins-docker-workflow/cloudformation-test/
+$ chmod +x cf-test
+$ mv cf-test /usr/local/bin/
 
 ````
-$ go run main.go 
+$ cf-test
+Checking Prerequisites ..
+JQ installed on linux
 
- Enter path of your file: ecs-pipeline.json
+ Enter path of your file: ecs-pipelline.json
 Checking Parameters
 Parameters OK
 Checking Resources
@@ -32,13 +41,8 @@ Checking Mappings
 Mappings OK
 Checking Metadata
 Metadata OK
-Basic Checks completed.
-OPTIONS [.Metadata][.Resources] 
-List of services: 
- * .EcsCluster 
- * .EcsElb 
- * .ECSAutoScalingGroup 
- * .ContainerInstances
+Do you wish to check your services (y/n) ?n
+exit status 1
  ````
 
 ## License
