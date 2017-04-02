@@ -15,19 +15,16 @@ Basic cloudformation can be divided into 4 categories such as:
 
 ## Prerequisites
 
-* Golang
-* Jq
+* Cloudformation JSON Template
 
 ## Installation 
 
 Simply follow the below commands:
-
+````
 $ git clone https://github.com/ramitsurana/jenkins-docker-workflow/
 $ cd jenkins-docker-workflow/cloudformation-test/
 $ chmod +x cf-test
 $ mv cf-test /usr/local/bin/
-
-````
 $ cf-test
 Checking Prerequisites ..
 JQ installed on linux
@@ -43,7 +40,7 @@ Checking Metadata
 Metadata OK
 Do you wish to check your services (y/n) ?n
 exit status 1
- ````
+````
 
 ## License
 
